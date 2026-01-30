@@ -16,7 +16,7 @@ import os
 import urllib.request
 
 MODEL_URL = "https://drive.google.com/uc?export=download&id=1enFt94qoakM7xsBsKQfv_efORrvs28xC"
-MODEL_PATH = "best_model.pth"
+MODEL_PATH = "best_model (1).pth"
 
 # Download only if not exists
 if not os.path.exists(MODEL_PATH):
