@@ -5,14 +5,6 @@ Face Forgery Detection - ARCHITECTURE FIXED
 ✅ Properly detects both real AND fake faces
 =================================================================
 """
-import urllib.request
-
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1enFt94qoakM7xsBsKQfv_efORrvs28xC"
-MODEL_PATH = "best_model.pth"
-
-urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
-
-
 import streamlit as st
 import torch
 import torch.nn as nn
@@ -20,6 +12,32 @@ from torchvision import models, transforms
 from PIL import Image
 import numpy as np
 import cv2
+import os
+import urllib.request
+
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1enFt94qoakM7xsBsKQfv_efORrvs28xC"
+MODEL_PATH = "best_model.pth"
+
+# Download only if not exists
+if not os.path.exists(MODEL_PATH):
+    urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+
+@st.cache_resource
+def load_model(model_path=MODEL_PATH):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    
+    try:
+        model = FaceClassifier().to(device)
+        checkpoint = torch.load(model_path, map_location=device)
+        model.load_state_dict(checkpoint['model_state_dict'])
+        model.eval()
+        val_acc = checkpoint.get('val_acc', 'N/A')
+        epoch = checkpoint.get('epoch', 'N/A')
+        return model, device, val_acc, epoch, True
+    except Exception as e:
+        st.error(f"❌ Error loading model: {e}")
+        return None, None, None, None, False
+
 
 # ================================================================
 # PAGE CONFIGURATION
