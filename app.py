@@ -5,6 +5,13 @@ Face Forgery Detection - ARCHITECTURE FIXED
 ✅ Properly detects both real AND fake faces
 =================================================================
 """
+import urllib.request
+
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1enFt94qoakM7xsBsKQfv_efORrvs28xC"
+MODEL_PATH = "best_model.pth"
+
+urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+
 
 import streamlit as st
 import torch
