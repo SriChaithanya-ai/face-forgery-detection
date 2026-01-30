@@ -10,4 +10,5 @@ torch
 torchvision
 timm
 scikit-image
+gdown
 	
