@@ -5,7 +5,6 @@ Face Forgery Detection - ARCHITECTURE FIXED
 ✅ Properly detects both real AND fake faces
 =================================================================
 """
-
 import streamlit as st
 import torch
 import torch.nn as nn
@@ -13,6 +12,12 @@ from torchvision import models, transforms
 from PIL import Image
 import numpy as np
 import cv2
+import os
+import urllib.request
+
+
+
+
 
 # ================================================================
 # PAGE CONFIGURATION
@@ -220,7 +225,7 @@ def draw_face_bbox(image, bbox):
 # ================================================================
 
 @st.cache_resource
-def load_model(model_path=r"C:\Users\CHAITHANYA\Desktop\Streamlit\best_model (1).pth"):
+def load_model(model_path=best_model.pth):
     """Load and validate the trained model"""
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
