@@ -225,7 +225,7 @@ def draw_face_bbox(image, bbox):
 # ================================================================
 
 @st.cache_resource
-def load_model(model_path=best_model (1).pth):
+def load_model(model_path=best_model.pth):
     """Load and validate the trained model"""
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
